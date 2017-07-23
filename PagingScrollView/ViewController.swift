@@ -10,14 +10,17 @@ class ViewController: UIViewController {
   let placeHolderText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   
   // Set the frames to zero because we'll be using AutoLayout to size them
-  var scrollView = UIScrollView(frame: .zero)
-  var stackView = UIStackView(frame: .zero)
-  var views:[UIView] = []
-  var pageControl = UIPageControl()
+  private var scrollView = UIScrollView(frame: .zero)
+  private var stackView = UIStackView(frame: .zero)
+  private var views:[UIView] = []
+  private var pageControl = UIPageControl()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    setup()
+  }
+  
+  private func setup() {
     // *** SETUP SCROLLVIEW *** //
     
     // *** SETUP STACKVIEW AND ADD SUBVIEWS *** //
@@ -33,7 +36,6 @@ class ViewController: UIViewController {
     views.append(pageView4)
     
     // *** ADD PAGECONTROLL *** //
-    
   }
 
   override func didReceiveMemoryWarning() {
