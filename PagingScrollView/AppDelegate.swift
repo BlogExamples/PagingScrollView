@@ -2,9 +2,6 @@
 //  AppDelegate.swift
 //  PagingScrollView
 //
-//  Created by JoshuaKuehn on 7/23/17.
-//  Copyright © 2017 Kuehn LLC. All rights reserved.
-//
 
 import UIKit
 

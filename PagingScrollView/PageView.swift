@@ -2,9 +2,6 @@
 //  PageView.swift
 //  PagingScrollView
 //
-//  Created by JoshuaKuehn on 7/23/17.
-//  Copyright © 2017 Kuehn LLC. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -30,8 +27,8 @@ class PageView: UIView {
   }
   
   // Designated Init method
-  init(frame: CGRect, headerText: String, paragraphText: String, backgroundColor: UIColor) {
-    super.init(frame: frame)
+  init(headerText: String, paragraphText: String, backgroundColor: UIColor) {
+    super.init(frame: .zero)
     setup()
     self.headerTextField.text = headerText
     self.paragraphTextView.text = paragraphText
