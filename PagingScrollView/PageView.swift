@@ -11,20 +11,25 @@ import UIKit
 
 class PageView: UIView {
   
+  // Private so that it can only be modified from within the class
   private var headerTextField = UITextField()
+  // When this property is set it will update the headerTextField text
   var headerText: String = "" {
     didSet {
       headerTextField.text = headerText
     }
   }
   
+  // Private so that you can only change from within the class
   private var paragraphTextView = UITextView()
+  // When this property is set it will update the paragraphTextView text
   var paragraphText: String = "" {
     didSet {
       paragraphTextView.text = paragraphText
     }
   }
   
+  // Designated Init method
   init(frame: CGRect, headerText: String, paragraphText: String, backgroundColor: UIColor) {
     super.init(frame: frame)
     setup()
@@ -33,7 +38,6 @@ class PageView: UIView {
     self.backgroundColor = backgroundColor
     
   }
-  
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -45,7 +49,7 @@ class PageView: UIView {
   }
   
   func setup() {
-    
+    // Basic text and view setup
     headerTextField.isUserInteractionEnabled = false
     headerTextField.textColor = .black
     headerTextField.textAlignment = .center
@@ -58,11 +62,13 @@ class PageView: UIView {
     paragraphTextView.isScrollEnabled = false
     paragraphTextView.backgroundColor = .clear
     
+    // Configuring the textfield/view for autoLayout
     headerTextField.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(headerTextField)
     paragraphTextView.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(paragraphTextView)
     
+    // Creating and activating the constraints
     NSLayoutConstraint.activate([
       headerTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
       headerTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor),
