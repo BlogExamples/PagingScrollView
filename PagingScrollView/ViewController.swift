@@ -88,7 +88,11 @@ class ViewController: UIViewController {
   }
   
   func pageControlTapped(sender: UIPageControl) {
-    print("Tapped")
+    let pageWidth = scrollView.bounds.width
+    let offset = sender.currentPage * Int(pageWidth)
+    UIView.animate(withDuration: 0.33, animations: { [weak self] in
+      self?.scrollView.contentOffset.x = CGFloat(offset)
+    })
   }
 
   override func didReceiveMemoryWarning() {
