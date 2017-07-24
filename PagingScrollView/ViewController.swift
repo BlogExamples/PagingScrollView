@@ -13,7 +13,7 @@ class ViewController: UIViewController {
   private var scrollView = UIScrollView(frame: .zero)
   private var stackView = UIStackView(frame: .zero)
   private var views:[UIView] = []
-  private var pageControl = UIPageControl()
+  var pageControl = UIPageControl()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,13 +26,17 @@ class ViewController: UIViewController {
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.backgroundColor = .black
     scrollView.showsHorizontalScrollIndicator = false
+    scrollView.isPagingEnabled = true
+    scrollView.delegate = self
     
     // [2]
     self.view.addSubview(scrollView)
     NSLayoutConstraint.activate([
       scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
-      scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-      scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+      // [1]
+      scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: -10),
+      // [2]
+      scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 10),
       scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     ])
     
@@ -40,14 +44,15 @@ class ViewController: UIViewController {
     // [1]
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.distribution = .equalSpacing
+    stackView.spacing = 20
     
     // [2]
     scrollView.addSubview(stackView)
     NSLayoutConstraint.activate([
       stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
       stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-      stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-      stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
+      stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
+      stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -10)
     ])
     
     // Initializing the views we'll put in the scrollView and adding them to an array for convenience
@@ -70,6 +75,20 @@ class ViewController: UIViewController {
     }
     
     // *** ADD PAGECONTROLL *** //
+    // [1]
+    pageControl.translatesAutoresizingMaskIntoConstraints = false
+    self.view.addSubview(pageControl)
+    pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+    pageControl.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
+    // [2]
+    pageControl.numberOfPages = views.count
+    // [3]
+    pageControl.addTarget(self, action: #selector(pageControlTapped(sender:)), for: .valueChanged)
+    
+  }
+  
+  func pageControlTapped(sender: UIPageControl) {
+    print("Tapped")
   }
 
   override func didReceiveMemoryWarning() {
@@ -79,4 +98,45 @@ class ViewController: UIViewController {
 
 
 }
+
+extension ViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    let pageWidth = scrollView.bounds.width
+    let pageFraction = scrollView.contentOffset.x/pageWidth
+    
+    pageControl.currentPage = Int((round(pageFraction)))
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
